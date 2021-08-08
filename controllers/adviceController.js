@@ -122,9 +122,31 @@ exports.upvoteAdvice = async (req, res) => {
       attributes: ["upvotes"],
     });
 
-    // Merge new upvotes to the current upvotes
-    const newUpvotes = [...response.data[0].upvotes, username];
-    console.log(response);
+    // remove duplicate with set -does this make sense?
+    const currentUpvoters = [...new Set(response.data[0].upvotes)];
+
+    console.log(currentUpvoters, "1");
+
+    // Check if the user already upvoted
+    const hasUpvoted = currentUpvoters.includes(username);
+
+    console.log(hasUpvoted, "has upvoted");
+
+    // Remove user from upvoted array
+    const index = currentUpvoters.indexOf(username);
+    if (index > -1) {
+      currentUpvoters.splice(index, 1);
+    }
+
+    console.log(currentUpvoters, "2");
+
+    // Merge/spread new upvotes to the current upvotes
+    const newUpvotes = hasUpvoted
+      ? [...currentUpvoters]
+      : [...currentUpvoters, username];
+
+    console.log(newUpvotes);
+
     const options = {
       table: "advices",
       records: [
@@ -144,6 +166,7 @@ exports.upvoteAdvice = async (req, res) => {
       res.send(err);
     }
   } catch (error) {
+    console.error(error);
     res.status(401).send(error);
   }
 };
