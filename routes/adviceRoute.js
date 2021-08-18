@@ -7,7 +7,7 @@ const {
 
 // Player router
 const router = require("express").Router();
-const pageinateAdvices = require("./../_helper/pagination");
+// const pageinateAdvices = require("./../_helper/pagination");
 
 router.get("/", allAdvice);
 router.post("/create", createAdvice);

@@ -9,9 +9,11 @@ app.use(cors());
 
 // Import Routes
 const adviceRoutes = require("./routes/adviceRoute");
+const bookmarkRoutes = require("./routes/bookmarkRoute");
 
 // Use routes
 app.use("/advice", adviceRoutes);
+app.use("/bookmark", bookmarkRoutes);
 
 // Handle unknown route
 app.use((req, res, next) => {
