@@ -15,7 +15,7 @@
     "joi": "^17.4.2"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "index.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

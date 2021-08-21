@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   throw error;
 });
 
-const port = process.env.PORT || 3020;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
   console.log(`Server is 🏃‍♂️ on port ${port}`);
