@@ -1,4 +1,4 @@
-const client = require("../config/dbConfiguration");
+const client = require("../config/dbconfig");
 
 exports.createAdvice = async (req, res) => {
   try {
