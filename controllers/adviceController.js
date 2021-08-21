@@ -232,6 +232,7 @@ exports.advicesByUser = async (req, res) => {
     });
     res.send(response);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 };
