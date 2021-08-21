@@ -10,8 +10,10 @@ app.use(cors());
 // Import Routes
 const adviceRoutes = require("./routes/adviceRoute");
 const bookmarkRoutes = require("./routes/bookmarkRoute");
+const userRoutes = require("./routes/userRoute");
 
 // Use routes
+app.use("/users", userRoutes);
 app.use("/advice", adviceRoutes);
 app.use("/bookmark", bookmarkRoutes);
 

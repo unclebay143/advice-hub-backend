@@ -1,5 +1,6 @@
 const client = require("../config/dbconfig");
 
+// Add bookmark
 exports.bookmarkAdvice = async (req, res) => {
   const { adviceId, username } = req.body;
   const options = {
@@ -7,7 +8,6 @@ exports.bookmarkAdvice = async (req, res) => {
     records: [
       {
         id: adviceId,
-        username,
         username,
       },
     ],
@@ -17,7 +17,21 @@ exports.bookmarkAdvice = async (req, res) => {
     const response = await client.insert(options);
     res.status(200).send(response);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
+  }
+};
+
+// Remove bookmark
+exports.removeBookmarkAdvice = async (req, res) => {
+  const { adviceId, username } = req.body;
+
+  try {
+    // const query = `DELETE FROM bookmarks WHERE id=${adviceId} AND username=${username}`;
+    const query = `DELETE FROM advice_hub.bookmarks WHERE id="${adviceId}" AND username="${username}"`;
+
+    const response = await client.query(query);
+    res.send(response);
+  } catch (error) {
     res.status(500).send(error);
   }
 };
@@ -30,7 +44,6 @@ exports.getBookedMarkAdvice = async (req, res) => {
     searchValue: [req.body.username],
     attributes: ["id"],
   };
-  console.log(req.body.username);
   try {
     // Retrieve all user bookedmarked reference -id and username
     const bookmarkedReference = await client.searchByValue(options);
@@ -39,13 +52,11 @@ exports.getBookedMarkAdvice = async (req, res) => {
       (bookmarked) => bookmarked.id
     );
 
-    console.log(adviceIdCollection);
-
     if (adviceIdCollection.length === 0) {
       res.status(200).send([]);
     }
 
-    // option to retrieve all bookedmarked ids, using the id collection
+    // option to retrieve all bookedmarked advice objects, using the id collection
     const secondOptions = {
       table: "advices",
       hashValues: adviceIdCollection,
@@ -55,6 +66,6 @@ exports.getBookedMarkAdvice = async (req, res) => {
     const getAdvices = await client.searchByHash(secondOptions);
     res.send(getAdvices.data);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
 };
