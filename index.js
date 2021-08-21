@@ -25,10 +25,8 @@ app.use((req, res, next) => {
   throw error;
 });
 
-// const port = process.env.PORT || 3020;
+const port = process.env.PORT || 3020;
 
-app.listen(1111, () => {
-  // console.log(`Server is 🏃‍♂️ on port ${port}
-  console.log(`Server is 🏃‍♂️ on port 1111
-    `);
+app.listen(port, () => {
+  console.log(`Server is 🏃‍♂️ on port ${port}`);
 });
