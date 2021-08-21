@@ -1,4 +1,4 @@
-const client = require("./../config/dbconfig");
+const client = require("../config/db-config");
 
 // Add bookmark
 exports.bookmarkAdvice = async (req, res) => {
