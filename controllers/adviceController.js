@@ -1,5 +1,7 @@
 const client = require("../config/db-config");
 
+console.log(client);
+
 exports.createAdvice = async (req, res) => {
   try {
     const {
